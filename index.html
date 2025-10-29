@@ -14,6 +14,10 @@
         padding: 20px;
     }
 
+    h2 {
+        margin-bottom: 20px;
+    }
+
     .certificate-container {
         position: relative;
         display: inline-block;
@@ -22,7 +26,7 @@
     .certificate {
         width: 1086px;
         height: 768px;
-        background-image: url('certificate.png');
+        background-image: url('unity.jpg');
         background-size: cover;
         background-position: center;
         position: relative;
@@ -31,7 +35,7 @@
         line-height: 1.8;
     }
 
-    /* Certificate number position */
+    /* Certificate number */
     .certification-number {
         position: absolute;
         top: 38px;
@@ -40,10 +44,10 @@
         text-align: right;
     }
 
-    /* Certificate main Hindi content */
+    /* Hindi certificate text */
     .certificate-text {
         position: absolute;
-        top: 290px; /* adjusted for precise placement */
+        top: 290px;
         left: 210px;
         width: 670px;
         text-align: justify;
@@ -54,13 +58,14 @@
         color: #000;
     }
 
-    /* UI Elements */
+    /* Input and buttons */
     #nameInput {
         font-size: 18px;
         padding: 6px 10px;
         border-radius: 6px;
         border: 1px solid #aaa;
-        width: 250px;
+        width: 260px;
+        font-family: 'Baloo 2', cursive;
     }
 
     button {
@@ -74,7 +79,7 @@
         cursor: pointer;
     }
 
-    #download-btn {
+    #certificateArea, #download-btn {
         display: none;
     }
 </style>
@@ -84,4 +89,60 @@
 <h2>राष्ट्रीय एकता दिवस प्रमाणपत्र जनरेटर</h2>
 
 <input type="text" id="nameInput" placeholder="अपना नाम दर्ज करें">
-<button onclick="generateCertificate()">प्रमाणपत्र बनाएं</b
+<button id="generateBtn">प्रमाणपत्र बनाएं</button>
+
+<div class="certificate-container" id="certificateArea">
+    <div class="certificate" id="certificate">
+        <div class="certification-number" id="certNo"></div>
+        <div class="certificate-text">
+            विकास खण्ड कासगंज में अध्ययनरत छात्र/छात्रा 
+            <span class="name" id="studentName"></span> ने जनपद कासगंज में 
+            31 अक्टूबर 2025 को “राष्ट्रीय एकता दिवस” के महत्व को समझ कर, आयोजित
+            कार्यक्रमों में सक्रिय भागीदारी की है। लौह पुरुष सरदार वल्लभभाई पटेल जी की 150वीं
+            जयंती के अवसर पर आयोजित राष्ट्रीय एकता दिवस पर भारत की अखंडता, एकता और
+            सौहार्द के उस अदम्य भाव को पुनः स्मरण करना है, जिसकी कल्पना सरदार पटेल ने एक
+            सशक्त और एकजुट भारत के लिए की थी।
+            आपकी सहभागिता राष्ट्र के प्रति समर्पण और एकता के आदर्शों को सशक्त बनाती है।
+        </div>
+    </div>
+</div>
+
+<button id="download-btn">प्रमाणपत्र डाउनलोड करें</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+document.getElementById("generateBtn").addEventListener("click", function() {
+    const name = document.getElementById("nameInput").value.trim();
+    if (name === "") {
+        alert("कृपया अपना नाम दर्ज करें।");
+        return;
+    }
+
+    // Generate a unique certificate number
+    const certNo = "Certificate No: " + Math.floor(100000 + Math.random() * 900000);
+    document.getElementById("certNo").textContent = certNo;
+
+    // Insert name
+    document.getElementById("studentName").textContent = name;
+
+    // Show certificate and download button
+    document.getElementById("certificateArea").style.display = "inline-block";
+    document.getElementById("download-btn").style.display = "inline-block";
+
+    // Scroll down to show certificate
+    window.scrollTo({ top: document.getElementById("certificateArea").offsetTop, behavior: "smooth" });
+});
+
+document.getElementById("download-btn").addEventListener("click", function() {
+    const certificate = document.getElementById("certificate");
+    html2canvas(certificate, { scale: 2 }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'certificate_' + Date.now() + '.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+});
+</script>
+
+</body>
+</html>
