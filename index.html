@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certificate Generator</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
     body {
         font-family: 'Baloo 2', cursive;
@@ -14,20 +15,18 @@
         padding: 20px;
     }
 
-    h2 {
-        margin-bottom: 20px;
-    }
-
     .certificate-container {
         position: relative;
         display: inline-block;
+        box-shadow: 0 0 8px rgba(0,0,0,0.3);
     }
 
     .certificate {
         width: 1086px;
         height: 768px;
-        background-image: url('unity.jpg');
+        background-image: url('certificate.png');
         background-size: cover;
+        background-repeat: no-repeat;
         background-position: center;
         position: relative;
         color: #000;
@@ -35,21 +34,20 @@
         line-height: 1.8;
     }
 
-    /* Certificate number */
+    /* Certificate Number (top-right corner) */
     .certification-number {
         position: absolute;
-        top: 38px;
-        right: 90px;
+        top: 30px;
+        right: 70px;
         font-size: 10px;
-        text-align: right;
     }
 
-    /* Hindi certificate text */
+    /* Hindi certificate text block - precise positioning */
     .certificate-text {
         position: absolute;
-        top: 290px;
-        left: 210px;
-        width: 670px;
+        top: 295px; /* adjust slightly if needed */
+        left: 200px;
+        width: 700px;
         text-align: justify;
     }
 
@@ -59,90 +57,4 @@
     }
 
     /* Input and buttons */
-    #nameInput {
-        font-size: 18px;
-        padding: 6px 10px;
-        border-radius: 6px;
-        border: 1px solid #aaa;
-        width: 260px;
-        font-family: 'Baloo 2', cursive;
-    }
-
-    button {
-        font-family: 'Baloo 2', cursive;
-        font-size: 18px;
-        background-color: #ffcc66;
-        border: none;
-        border-radius: 8px;
-        padding: 8px 20px;
-        margin: 10px;
-        cursor: pointer;
-    }
-
-    #certificateArea, #download-btn {
-        display: none;
-    }
-</style>
-</head>
-<body>
-
-<h2>राष्ट्रीय एकता दिवस प्रमाणपत्र जनरेटर</h2>
-
-<input type="text" id="nameInput" placeholder="अपना नाम दर्ज करें">
-<button id="generateBtn">प्रमाणपत्र बनाएं</button>
-
-<div class="certificate-container" id="certificateArea">
-    <div class="certificate" id="certificate">
-        <div class="certification-number" id="certNo"></div>
-        <div class="certificate-text">
-            विकास खण्ड कासगंज में अध्ययनरत छात्र/छात्रा 
-            <span class="name" id="studentName"></span> ने जनपद कासगंज में 
-            31 अक्टूबर 2025 को “राष्ट्रीय एकता दिवस” के महत्व को समझ कर, आयोजित
-            कार्यक्रमों में सक्रिय भागीदारी की है। लौह पुरुष सरदार वल्लभभाई पटेल जी की 150वीं
-            जयंती के अवसर पर आयोजित राष्ट्रीय एकता दिवस पर भारत की अखंडता, एकता और
-            सौहार्द के उस अदम्य भाव को पुनः स्मरण करना है, जिसकी कल्पना सरदार पटेल ने एक
-            सशक्त और एकजुट भारत के लिए की थी।
-            आपकी सहभागिता राष्ट्र के प्रति समर्पण और एकता के आदर्शों को सशक्त बनाती है।
-        </div>
-    </div>
-</div>
-
-<button id="download-btn">प्रमाणपत्र डाउनलोड करें</button>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script>
-document.getElementById("generateBtn").addEventListener("click", function() {
-    const name = document.getElementById("nameInput").value.trim();
-    if (name === "") {
-        alert("कृपया अपना नाम दर्ज करें।");
-        return;
-    }
-
-    // Generate a unique certificate number
-    const certNo = "Certificate No: " + Math.floor(100000 + Math.random() * 900000);
-    document.getElementById("certNo").textContent = certNo;
-
-    // Insert name
-    document.getElementById("studentName").textContent = name;
-
-    // Show certificate and download button
-    document.getElementById("certificateArea").style.display = "inline-block";
-    document.getElementById("download-btn").style.display = "inline-block";
-
-    // Scroll down to show certificate
-    window.scrollTo({ top: document.getElementById("certificateArea").offsetTop, behavior: "smooth" });
-});
-
-document.getElementById("download-btn").addEventListener("click", function() {
-    const certificate = document.getElementById("certificate");
-    html2canvas(certificate, { scale: 2 }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'certificate_' + Date.now() + '.png';
-        link.href = canvas.toDataURL();
-        link.click();
-    });
-});
-</script>
-
-</body>
-</html>
+    #nameInput
